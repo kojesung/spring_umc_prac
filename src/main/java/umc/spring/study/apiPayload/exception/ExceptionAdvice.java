@@ -24,9 +24,10 @@ import java.io.StringWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
-
+//여긴 전체적으로 예외를 처리하고 응답을 반환해줌
 @Slf4j
 @RestControllerAdvice(annotations = {RestController.class})
+//컨트롤러 전반에 발생하는 예외를 처리하는 클래스임을 나타냄, 그 중에서도 RestController에 적용되는 예외 처리함을 명시
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler

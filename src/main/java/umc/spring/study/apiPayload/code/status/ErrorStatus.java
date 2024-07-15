@@ -30,7 +30,7 @@ public enum ErrorStatus implements BaseErrorCode {
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;
-
+//private final 로 선언된 애들은 enum의 필드들
     @Override
     public ErrorReasonDTO getReason() {
         return ErrorReasonDTO.builder()
@@ -51,4 +51,5 @@ public enum ErrorStatus implements BaseErrorCode {
                 .build()
                 ;
     }
+    //getReason()과 getReasonHttpStatus()는 요청에 대한 응답을 DTO형태로 바꿔주기 위한 것들
 }
