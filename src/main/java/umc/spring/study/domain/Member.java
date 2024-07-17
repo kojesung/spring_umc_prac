@@ -47,7 +47,7 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;//LocalDate import 해줘야 함
 
-    @Column(nullable = false, length = 50)
+    //@Column(nullable = false, length = 50)
     private String email;
 
     private Integer point;
