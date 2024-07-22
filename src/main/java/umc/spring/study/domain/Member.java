@@ -2,6 +2,9 @@ package umc.spring.study.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.spring.study.domain.common.BaseEntity;
 import umc.spring.study.domain.enums.Gender;
 import umc.spring.study.domain.enums.MemberStatus;
@@ -19,6 +22,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor//이 어노테이션이 없으면 @Builder에 에러가 뜨는데 왜일까?
 //전체 생성자 만들어주는 에노테이션, 얘가 없으면 생성자가 없게 되니까 Builder를 쓸 수 없게 됨
+@DynamicInsert
+@DynamicUpdate
 public class Member extends BaseEntity {
 
     @Id
@@ -50,6 +55,7 @@ public class Member extends BaseEntity {
     //@Column(nullable = false, length = 50)
     private String email;
 
+    @ColumnDefault("0")
     private Integer point;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)//양방향 매핑을 위한 OneToMany

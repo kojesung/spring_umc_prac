@@ -5,6 +5,7 @@ import umc.spring.study.domain.enums.Gender;
 import umc.spring.study.web.dto.MemberRequestDTO;
 import umc.spring.study.web.dto.MemberResponseDTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -31,10 +32,14 @@ public class MemberConverter {
                 gender = Gender.NONE;
                 break;
         }
+        LocalDate birth = LocalDate.of(request.getBirthYear(), request.getBirthMonth(), request.getBirthDay());
+
         return Member.builder()
+                .name(request.getName())//이거 없었음;;;;
+                //에러 났을 때 어떤 필드가 누락되었다는 에러가 나면 DTO Converter쪽 봐주면 됨
+                .gender(gender)
                 .address(request.getAddress())
                 .specAddress(request.getSpecAddress())
-                .gender(gender)
                 .memberPreferList(new ArrayList<>())
                 .build();
     }

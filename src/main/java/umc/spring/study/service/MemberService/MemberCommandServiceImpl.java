@@ -21,15 +21,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @org.springframework.transaction.annotation.Transactional(readOnly = true)
 public class MemberCommandServiceImpl implements MemberCommandService{
+    //MemberCommandService인터페이스를 구현하는 클래스임을 명시
+    //이제 MemberCommandServiceImpl은 인터페이스의 모든 메서드를 구현해야 함!!!!!
     private final MemberRepository memberRepository;
 
     private final FoodCategoryRepository foodCategoryRepository;
+    //생성자를 통해 주입받은 모습
 
     @Override
     @Transactional
-    public Member joinMember(MemberRequestDTO.JoinDto request) {
+    public Member joinMember(MemberRequestDTO.JoinDto request) {//joinMember의 타입인 Member는 먼소린지 몰게씀
 
-        Member newMember = MemberConverter.toMember(request);
+        Member newMember = MemberConverter.toMember(request);//DTO를 엔티티로 바꿔줌
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> {
                     return foodCategoryRepository.findById(category).orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
@@ -41,4 +44,6 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
         return memberRepository.save(newMember);
     }
+
+
 }
