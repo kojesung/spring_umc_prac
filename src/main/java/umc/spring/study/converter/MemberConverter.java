@@ -35,7 +35,7 @@ public class MemberConverter {
         LocalDate birth = LocalDate.of(request.getBirthYear(), request.getBirthMonth(), request.getBirthDay());
 
         return Member.builder()
-                .name(request.getName())//이거 없었음;;;;
+                .name(request.getName())//
                 //에러 났을 때 어떤 필드가 누락되었다는 에러가 나면 DTO Converter쪽 봐주면 됨
                 .gender(gender)
                 .address(request.getAddress())

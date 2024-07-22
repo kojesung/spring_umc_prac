@@ -1,10 +1,12 @@
 package umc.spring.study.web.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 public class MemberRequestDTO {
+    @Setter
     @Getter
     public static class JoinDto{
         String name;
