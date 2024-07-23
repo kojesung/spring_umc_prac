@@ -20,9 +20,13 @@ public class SnackRestController {
         return ApiResponse.onSuccess(allSnacks);
     }
 
-    @PostMapping("/")
+    @PostMapping("/order")
     public ApiResponse<String> Order(@RequestBody SnackResponseDTO.SnackOderRequestDTO request) {
         snackService.OrderSnack(request);
         return ApiResponse.onSuccess("success");
     }
+
+//    @GetMapping("/")
+//    public ApiResponse<>
+
 }

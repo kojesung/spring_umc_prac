@@ -7,7 +7,9 @@ import umc.spring.study.domain.Member;
 import umc.spring.study.domain.Snack;
 import umc.spring.study.domain.SnackOrder;
 import umc.spring.study.repository.MemberRepository;
+import umc.spring.study.repository.SnackOrderRepository;
 import umc.spring.study.repository.SnackRepository;
+import umc.spring.study.web.dto.OrderListResponseDTO;
 import umc.spring.study.web.dto.SnackResponseDTO;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class SnackServiceImpl implements SnackService{
     private final SnackRepository snackRepository;
     private final MemberRepository memberRepository;
+    private final SnackOrderRepository snackOrderRepository;
 
     @Override
     public List<SnackResponseDTO.SnackDTO> getAllSnacks() {
@@ -39,7 +42,22 @@ public class SnackServiceImpl implements SnackService{
 
         SnackOrder snackOrder=SnackConverter.toSnackOrder(member,snack);
 
-        snackRepository.save(snack);
+        member.setPoint(0);
+        memberRepository.save(member);
+        //멤버의 포인트 0으로 초기화해주는 로직
+
+        snackOrderRepository.save(snackOrder);
 
     }
+
+//    @Override
+//    public List<OrderListResponseDTO.OrderListDTO> getOrderList() {
+//        List<OrderListResponseDTO.OrderListDTO> list = snackOrderRepository.findAll().stream()
+//                .map(content -> {
+//                    return SnackConverter.toOrderListDTO(content);//toOrderListDTO return 추가
+//                })
+//                .collect(Collectors.toList());
+//        return list;
+//    }
+
 }

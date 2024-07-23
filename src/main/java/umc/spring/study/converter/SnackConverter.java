@@ -3,6 +3,7 @@ package umc.spring.study.converter;
 import umc.spring.study.domain.Member;
 import umc.spring.study.domain.Snack;
 import umc.spring.study.domain.SnackOrder;
+import umc.spring.study.web.dto.OrderListResponseDTO;
 import umc.spring.study.web.dto.SnackResponseDTO;
 
 public class SnackConverter {
@@ -20,5 +21,9 @@ public class SnackConverter {
                 .member(member)
                 .snack(snack)
                 .build();
+    }
+
+    public static OrderListResponseDTO.OrderListDTO toOrderListDTO() {
+        return null;//인자 설정해줘야 함
     }
 }
