@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SnackService {
     List<SnackResponseDTO.SnackDTO> getAllSnacks();
+
+    void OrderSnack(SnackResponseDTO.SnackOderRequestDTO request);
 }

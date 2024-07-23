@@ -20,4 +20,15 @@ public class SnackResponseDTO {
 
         String img;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SnackOderRequestDTO{
+        Long memberId;
+        Long snackId;
+    }
+
+
 }

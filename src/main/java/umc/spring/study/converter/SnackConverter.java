@@ -1,6 +1,8 @@
 package umc.spring.study.converter;
 
+import umc.spring.study.domain.Member;
 import umc.spring.study.domain.Snack;
+import umc.spring.study.domain.SnackOrder;
 import umc.spring.study.web.dto.SnackResponseDTO;
 
 public class SnackConverter {
@@ -10,6 +12,13 @@ public class SnackConverter {
                 .name(snack.getName())
                 .nutrient(snack.getNutrient())
                 .img(snack.getImg())
+                .build();
+    }
+
+    public static SnackOrder toSnackOrder(Member member, Snack snack) {
+        return SnackOrder.builder()
+                .member(member)
+                .snack(snack)
                 .build();
     }
 }
