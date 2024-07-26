@@ -24,7 +24,9 @@ public class SnackOrder {
     @JoinColumn(name = "snack_id")
     private Snack snack;
 
+    @Column(nullable = false)
     private Boolean status;
 
+    @Column(name = "order_time", nullable = false)
     private LocalDateTime orderTime;
 }

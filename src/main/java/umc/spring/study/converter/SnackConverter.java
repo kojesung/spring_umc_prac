@@ -6,6 +6,8 @@ import umc.spring.study.domain.SnackOrder;
 import umc.spring.study.web.dto.OrderListResponseDTO;
 import umc.spring.study.web.dto.SnackResponseDTO;
 
+import java.time.LocalDateTime;
+
 public class SnackConverter {
     public static SnackResponseDTO.SnackDTO toSnackDTO(Snack snack) {
         return SnackResponseDTO.SnackDTO.builder()
@@ -20,6 +22,8 @@ public class SnackConverter {
         return SnackOrder.builder()
                 .member(member)
                 .snack(snack)
+                .status(true) // Assuming the order is always active
+                .orderTime(LocalDateTime.now())
                 .build();
     }
 
