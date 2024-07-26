@@ -3,6 +3,8 @@ package umc.spring.study.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @Builder
@@ -21,4 +23,8 @@ public class SnackOrder {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "snack_id")
     private Snack snack;
+
+    private Boolean status;
+
+    private LocalDateTime orderTime;
 }

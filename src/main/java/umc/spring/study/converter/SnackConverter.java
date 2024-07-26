@@ -23,7 +23,11 @@ public class SnackConverter {
                 .build();
     }
 
-    public static OrderListResponseDTO.OrderListDTO toOrderListDTO() {
-        return null;//인자 설정해줘야 함
+    public static OrderListResponseDTO.OrderListDTO toOrderListDTO(SnackOrder snackOrder) {
+        return new OrderListResponseDTO.OrderListDTO(
+                snackOrder.getSnack().getName(),
+                snackOrder.getStatus(),
+                snackOrder.getOrderTime().toString()
+        );
     }
 }

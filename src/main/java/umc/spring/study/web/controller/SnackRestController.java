@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import umc.spring.study.apiPayload.ApiResponse;
 import umc.spring.study.service.SnackService.SnackService;
+import umc.spring.study.web.dto.OrderListResponseDTO;
 import umc.spring.study.web.dto.SnackResponseDTO;
 
 import java.util.List;
@@ -26,7 +27,10 @@ public class SnackRestController {
         return ApiResponse.onSuccess("success");
     }
 
-//    @GetMapping("/")
-//    public ApiResponse<>
+    @GetMapping("/order/list")
+    public ApiResponse<List<OrderListResponseDTO.OrderListDTO>> getList(@RequestParam Long userId){
+        List<OrderListResponseDTO.OrderListDTO> orderList = snackService.getOrderList(userId);
+        return ApiResponse.onSuccess(orderList);
+    }
 
 }

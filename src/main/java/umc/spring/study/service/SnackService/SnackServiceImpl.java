@@ -15,6 +15,8 @@ import umc.spring.study.web.dto.SnackResponseDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static umc.spring.study.converter.SnackConverter.toOrderListDTO;
+
 @Service
 @RequiredArgsConstructor
 public class SnackServiceImpl implements SnackService{
@@ -50,14 +52,16 @@ public class SnackServiceImpl implements SnackService{
 
     }
 
-//    @Override
-//    public List<OrderListResponseDTO.OrderListDTO> getOrderList() {
-//        List<OrderListResponseDTO.OrderListDTO> list = snackOrderRepository.findAll().stream()
-//                .map(content -> {
-//                    return SnackConverter.toOrderListDTO(content);//toOrderListDTO return 추가
-//                })
-//                .collect(Collectors.toList());
-//        return list;
-//    }
+
+    @Override
+    public List<OrderListResponseDTO.OrderListDTO> getOrderList(Long userId) {
+        List<SnackOrder> orders = snackOrderRepository.findByMemberId(userId);
+        return orders.stream()
+                .map(SnackConverter-> {
+                    return toOrderListDTO(SnackConverter);
+                })
+                .collect(Collectors.toList());
+    }
+
 
 }
