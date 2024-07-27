@@ -12,6 +12,7 @@ import umc.spring.study.repository.SnackRepository;
 import umc.spring.study.web.dto.OrderListResponseDTO;
 import umc.spring.study.web.dto.SnackResponseDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,13 +41,16 @@ public class SnackServiceImpl implements SnackService{
         Member member=memberRepository.findById(request.getMemberId())
                 .orElseThrow(()->new IllegalArgumentException("Member not found"));
         Snack snack=snackRepository.findById(request.getSnackId())
-                .orElseThrow(()->new IllegalArgumentException("Member not found"));
-
+                .orElseThrow(()->new IllegalArgumentException("Snack not found"));
+        if (member.getPoint() == 1000) {
+            // 멤버의 포인트가 1000일 때
+            member.setPoint(0);
+            memberRepository.save(member);
+        } else {
+            // 멤버의 포인트가 1000이 아닐 때 예외 발생
+            throw new IllegalArgumentException("구매할 수 없습니다. 필요한 포인트: 1000");
+        }
         SnackOrder snackOrder=SnackConverter.toSnackOrder(member,snack);
-
-        member.setPoint(0);
-        memberRepository.save(member);
-        //멤버의 포인트 0으로 초기화해주는 로직
 
         snackOrderRepository.save(snackOrder);
 
