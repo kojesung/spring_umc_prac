@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import umc.spring.study.domain.enums.SnackOrderStatus;
 
 public class OrderListResponseDTO {
     @Setter
@@ -13,7 +14,7 @@ public class OrderListResponseDTO {
     public static class OrderListDTO {
         String snackName;
 
-        Boolean status;
+        SnackOrderStatus status;
 
         String orderTime;
     }

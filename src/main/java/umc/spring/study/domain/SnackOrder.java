@@ -2,6 +2,7 @@ package umc.spring.study.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import umc.spring.study.domain.enums.SnackOrderStatus;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +26,8 @@ public class SnackOrder {
     private Snack snack;
 
     @Column(nullable = false)
-    private Boolean status;
+    @Enumerated(EnumType.STRING)
+    private SnackOrderStatus status;
 
     @Column(name = "order_time", nullable = false)
     private LocalDateTime orderTime;
