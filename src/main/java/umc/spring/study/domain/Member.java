@@ -11,6 +11,7 @@ import umc.spring.study.domain.enums.MemberStatus;
 import umc.spring.study.domain.enums.SocialType;
 import umc.spring.study.domain.mapping.MemberAgree;
 import umc.spring.study.domain.mapping.MemberPrefer;
+import umc.spring.study.domain.mapping.MemberQuestion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -57,6 +58,14 @@ public class Member extends BaseEntity {
 
     @ColumnDefault("0")
     private Integer point;
+
+    private Integer questionCount;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Pet pet;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberQuestion> memberQuestionsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)//양방향 매핑을 위한 OneToMany
     private List<MemberAgree> memberAgreeList = new ArrayList<>();//리스트 형식으로 저장하기 위한 코드
