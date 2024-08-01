@@ -10,6 +10,7 @@ import umc.spring.study.domain.common.BaseEntity;
 @Entity
 @Getter
 @Builder
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class MemberQuestion extends BaseEntity {

@@ -13,6 +13,7 @@ import umc.spring.study.repository.QuestionRepository;
 import umc.spring.study.web.dto.MainPageDTO.MainPageResponseDTO;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -26,26 +27,29 @@ public class MainPageConverter {
     public MainPageResponseDTO toMainPageDTO(Long userId) {
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
-        //userId로 해당하는 Member엔티티 가져옴
+
         Pet pet = petRepository.findByMemberId(userId);
-        //userId로 해당하는 Pet엔티티 가져옴, 근데 이 findByMemberId는 어디서 나오는거냐?(들어가봐)
-        if (pet == null) {//조회했는데 pet이 null일 때,
+        if (pet == null) {
             throw new IllegalArgumentException("Pet not found");
         }
 
-        MemberQuestion memberQuestion = memberQuestionRepository.findTopByMemberIdOrderByCreatedAtDesc(userId)
-                .orElseThrow(() -> new IllegalArgumentException("MemberQuestion not found"));
-        //MemberQuestion매핑 테이블 중 해당 userId로 작성한 답변들 중에서 가장 최근 값을 포함하는 내용들이 담겨있음
+        Optional<MemberQuestion> optionalMemberQuestion = memberQuestionRepository.findTopByMemberIdOrderByCreatedAtDesc(userId);
 
-        Question todayQuestion = questionRepository.findById(memberQuestion.getMember().getQuestionCount())
-                //memberQuestion.getMember()를 했을 때 Member객체가 반환되는 이유는 ManyToOne으로 매핑되어있기 때문
-                .orElseThrow(() -> new IllegalArgumentException("Question not found"));
+        Question todayQuestion;
+        boolean questionStatus = false;
 
-        // 현재 날짜
-        LocalDate today = LocalDate.now();
-        // questionStatus는 오늘 날짜에 해당하는 질문이 있는지 여부로 판단
-        boolean questionStatus = member.getMemberQuestionsList().stream()
-                .anyMatch(mq -> mq.getCreatedAt().toLocalDate().equals(today));
+        if (optionalMemberQuestion.isPresent()) {//optionalMemberQuestion에 값이 있으면(매핑 테이블안에 해당하는 유저가 있을 때)
+            MemberQuestion memberQuestion = optionalMemberQuestion.get();
+            todayQuestion = questionRepository.findById(Math.toIntExact(memberQuestion.getQuestion().getId()))
+                    .orElse(null); // Question not found 시 null 반환
+
+            LocalDate today = LocalDate.now();
+            questionStatus = member.getMemberQuestionsList().stream()
+                    .anyMatch(mq -> mq.getCreatedAt().toLocalDate().equals(today));
+        } else {//매핑 테이블안에 해당하는 유저가 없을 때
+            todayQuestion = questionRepository.findById(1)
+                    .orElseThrow(() -> new IllegalArgumentException("Default Question not found"));
+        }
 
         return MainPageResponseDTO.builder()
                 .petName(pet.getName())

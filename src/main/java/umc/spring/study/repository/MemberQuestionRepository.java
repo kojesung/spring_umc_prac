@@ -12,4 +12,5 @@ public interface MemberQuestionRepository extends JpaRepository<MemberQuestion, 
     //MemberId : 이거로 찾는다
     //OrderByCreatedAtDesc : CreatedAt속성을 기준으로 내림차순 정렬
     //Optional이 붙으면 Null을 반환하지 않음
+    Optional<MemberQuestion> findByQuestionIdAndMemberId(Long questionId, Long memberId);
 }
