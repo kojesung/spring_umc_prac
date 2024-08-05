@@ -30,7 +30,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
     @Override
     @Transactional
-    public Member joinMember(MemberRequestDTO.JoinDto request) {//joinMember의 타입인 Member는 먼소린지 몰게씀
+    public Member joinMember(MemberRequestDTO.JoinDto request) {//joinMember의 타입인 Member는 먼소린지 몰게씀->return 타입임
 
         Member newMember = MemberConverter.toMember(request);//DTO를 엔티티로 바꿔줌
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
