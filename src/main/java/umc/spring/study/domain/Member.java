@@ -11,6 +11,7 @@ import umc.spring.study.domain.enums.MemberStatus;
 import umc.spring.study.domain.enums.SocialType;
 import umc.spring.study.domain.mapping.MemberAgree;
 import umc.spring.study.domain.mapping.MemberPrefer;
+import umc.spring.study.domain.mapping.MemberQuestion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -55,8 +56,19 @@ public class Member extends BaseEntity {
     //@Column(nullable = false, length = 50)
     private String email;
 
+    //List<>는 <>안에 값들로 List를 만든다는 뜻이고 = new ArrayList<>()를 해주는 이유는 이걸 안해주면 초기화가 안돼있어서 나중에 오류 생길 수 있어서
+    @Setter
     @ColumnDefault("0")
     private Integer point;
+
+    @ColumnDefault("1")
+    private Integer questionCount;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Pet pet;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberQuestion> memberQuestionsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)//양방향 매핑을 위한 OneToMany
     private List<MemberAgree> memberAgreeList = new ArrayList<>();//리스트 형식으로 저장하기 위한 코드
@@ -64,8 +76,4 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberPrefer> memberPreferList = new ArrayList<>();
 
-//List<>는 <>안에 값들로 List를 만든다는 뜻이고 = new ArrayList<>()를 해주는 이유는 이걸 안해주면 초기화가 안돼있어서 나중에 오류 생길 수 있어서
-    public void setPoint(Integer point) {
-        this.point = point;
-    }
 }

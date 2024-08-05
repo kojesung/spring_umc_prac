@@ -15,6 +15,7 @@ import java.util.List;
 public class SnackRestController {
     private final SnackService snackService;
 
+
     @GetMapping("/")
     public ApiResponse<List<SnackResponseDTO.SnackDTO>> getAllSnacks() {
         List<SnackResponseDTO.SnackDTO> allSnacks = snackService.getAllSnacks();
