@@ -43,7 +43,7 @@ public class MainPageConverter {
             todayQuestion = questionRepository.findById(Math.toIntExact(memberQuestion.getQuestion().getId()))
                     .orElse(null); // Question not found 시 null 반환
 
-            LocalDate today = LocalDate.now();
+            LocalDate today = LocalDate.now();;
             questionStatus = member.getMemberQuestionsList().stream()
                     .anyMatch(mq -> mq.getCreatedAt().toLocalDate().equals(today));
         } else {//매핑 테이블안에 해당하는 유저가 없을 때
