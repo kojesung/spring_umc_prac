@@ -3,6 +3,7 @@ package umc.spring.study.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import umc.spring.study.domain.mapping.MemberQuestion;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberQuestionRepository extends JpaRepository<MemberQuestion, Long> {
@@ -13,4 +14,6 @@ public interface MemberQuestionRepository extends JpaRepository<MemberQuestion, 
     //OrderByCreatedAtDesc : CreatedAt속성을 기준으로 내림차순 정렬
     //Optional이 붙으면 Null을 반환하지 않음
     Optional<MemberQuestion> findByQuestionIdAndMemberId(Long questionId, Long memberId);
+
+    List<MemberQuestion> findByMemberIdOrderByQuestionIdAsc(Long memberId);
 }

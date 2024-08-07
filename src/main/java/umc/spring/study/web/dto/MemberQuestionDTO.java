@@ -1,9 +1,8 @@
 package umc.spring.study.web.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 public class MemberQuestionDTO {
     @Setter
@@ -26,5 +25,17 @@ public class MemberQuestionDTO {
         String createdAt;
         String updatedAt;
         Long questionId;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class QuestionMemberResponseDTO{
+        Long questionId;
+        String questionContent;
+        Long answerId;
+        LocalDateTime createdAt;
+        LocalDateTime updatedAt;
     }
 }
