@@ -22,27 +22,32 @@ public class AnswerServiceImpl implements AnswerService{
     private final QuestionRepository questionRepository;
     private final MemberQuestionRepository memberQuestionRepository;
 
-
     @Override
     @Transactional
     public Answer addAnswer(Answer answer) {
         return answerRepository.save(answer);
-    };
+    }
 
     @Override
     @Transactional
     public MemberQuestion addMemberQuestion(AnswerDTO.AnswerSubmitRequestDTO request){
         Member member = memberRepository.findById(request.getMemberId())
-                .orElseThrow(()-> new IllegalArgumentException("Member not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
         Question question = questionRepository.findById(Math.toIntExact(request.getQuestionId()))
-                .orElseThrow(()->new IllegalArgumentException("Question not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Question not found"));
         Answer answer = AnswerConverter.toAnswer(request);
 
         // Answer를 먼저 저장
         Answer savedAnswer = answerRepository.save(answer);
 
+        // Member의 questionCount가 요청의 questionId와 같은지 확인
+        if (member.getQuestionCount() == Math.toIntExact(request.getQuestionId())) {
+            member.incrementQuestionCount();
+            memberRepository.save(member);
+        }
+
         // 저장된 Answer를 사용하여 MemberQuestion 생성
         MemberQuestion memberQuestion = AnswerConverter.toMemberQuestion(request, member, question, savedAnswer);
         return memberQuestionRepository.save(memberQuestion);
-    };
+    }
 }
