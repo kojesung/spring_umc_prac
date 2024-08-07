@@ -21,6 +21,7 @@ public class MemberQuestionDTO {
     @AllArgsConstructor
     public static class QuestionAnswerResponseDTO{
         String question;
+        Long answerId;
         String answer;
         String createdAt;
         String updatedAt;

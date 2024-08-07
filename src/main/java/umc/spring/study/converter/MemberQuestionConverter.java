@@ -7,6 +7,7 @@ public class MemberQuestionConverter {
     public static MemberQuestionDTO.QuestionAnswerResponseDTO toQuestionAnswerResponseDTO(MemberQuestion memberQuestion) {
         return new MemberQuestionDTO.QuestionAnswerResponseDTO(
                 memberQuestion.getQuestion().getContent(),
+                memberQuestion.getAnswer().getId(),
                 memberQuestion.getAnswer().getAnswer(),
                 memberQuestion.getCreatedAt().toString(),
                 memberQuestion.getUpdatedAt().toString(),
