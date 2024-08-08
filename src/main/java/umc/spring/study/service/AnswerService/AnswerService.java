@@ -11,4 +11,10 @@ public interface AnswerService {
 
     @Transactional
     MemberQuestion addMemberQuestion(AnswerDTO.AnswerSubmitRequestDTO request);
+
+    @Transactional
+    MemberQuestion updateMemberQuestion(AnswerDTO.AnswerSubmitRequestDTO request);
+
+    @Transactional
+    boolean confirmMemberQuestion(AnswerDTO.AnswerSubmitRequestDTO request);
 }

@@ -50,4 +50,26 @@ public class AnswerServiceImpl implements AnswerService{
         MemberQuestion memberQuestion = AnswerConverter.toMemberQuestion(request, member, question, savedAnswer);
         return memberQuestionRepository.save(memberQuestion);
     }
+
+    @Override
+    @Transactional
+    public MemberQuestion updateMemberQuestion(AnswerDTO.AnswerSubmitRequestDTO request) {
+        MemberQuestion memberQuestion = memberQuestionRepository.findByQuestionIdAndMemberId(request.getQuestionId(), request.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("MemberQuestion not found"));
+
+        Answer updatedAnswer = AnswerConverter.toAnswer(request);
+        Answer savedAnswer = answerRepository.save(updatedAnswer);
+
+        memberQuestion.updateAnswer(savedAnswer); // 명시적 메서드를 통해 Answer 업데이트
+        memberQuestion.updateTimestamp(); // 타임스탬프 업데이트
+        return memberQuestionRepository.save(memberQuestion);
+    }
+
+    @Override
+    @Transactional
+    public boolean confirmMemberQuestion(AnswerDTO.AnswerSubmitRequestDTO request){
+        Long questionId = request.getQuestionId();
+        Long memberId = request.getMemberId();
+        return memberQuestionRepository.existsByQuestionIdAndMemberId(questionId, memberId);
+    }
 }

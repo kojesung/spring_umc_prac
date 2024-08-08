@@ -15,17 +15,4 @@ public class AnswerDTO {
 
         private Long memberId;
     }
-
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class AnswerUpdateRequestDTO{
-        private Long questionId;
-
-        private String answerContent;
-
-        private Long memberId;
-
-    }
 }

@@ -1,5 +1,7 @@
 package umc.spring.study.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import umc.spring.study.domain.mapping.MemberQuestion;
 
@@ -15,5 +17,7 @@ public interface MemberQuestionRepository extends JpaRepository<MemberQuestion, 
     //Optional이 붙으면 Null을 반환하지 않음
     Optional<MemberQuestion> findByQuestionIdAndMemberId(Long questionId, Long memberId);
 
-    List<MemberQuestion> findByMemberIdOrderByQuestionIdAsc(Long memberId);
+    Page<MemberQuestion> findByMemberIdOrderByQuestionIdAsc(Long memberId, Pageable pageable); // QuestionId 기준으로 오름차순 정렬 및 페이징 처리
+    boolean existsByQuestionIdAndMemberId(Long questionId, Long memberId);
+
 }

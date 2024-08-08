@@ -31,7 +31,11 @@ public class AnswerRestController {
         따라서 저장된 answer가 아닌 answer를 addMemberQuestion을 통해서 저장하려고 했기 때문에 Answer테이블에 없다는 에러가 발생하게 됨
          */
 
-        answerServiceImpl.addMemberQuestion(request);
+        if (answerServiceImpl.confirmMemberQuestion(request)){
+            answerServiceImpl.updateMemberQuestion(request);
+        }else{
+            answerServiceImpl.addMemberQuestion(request);
+        }
         return ApiResponse.onSuccess("제출 성공");
     };
 
