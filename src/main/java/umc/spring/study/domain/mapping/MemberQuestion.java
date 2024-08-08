@@ -7,6 +7,8 @@ import umc.spring.study.domain.Member;
 import umc.spring.study.domain.Question;
 import umc.spring.study.domain.common.BaseEntity;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Builder
@@ -29,4 +31,13 @@ public class MemberQuestion extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "answer_id")
     private Answer answer;
+
+    // 필드 업데이트를 위한 명시적 메서드
+    public void updateAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    public void updateTimestamp() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
